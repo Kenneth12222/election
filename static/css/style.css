@@ -1,279 +1,370 @@
       :root {
-            --gold-primary: #D4AF37;
-            --gold-secondary: #F5D07A;
-            --kenyan-green: #006644;
-            --kenyan-red: #BB0A21;
-            --kenyan-black: #0A0A0A;
-            --ivory-white: #F8F5F0;
-            --deep-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            --light-glow: 0 0 15px rgba(212, 175, 55, 0.4);
+        --gold-primary: #D4AF37;
+        --gold-secondary: #F5D07A;
+        --kenyan-green: #006644;
+        --kenyan-red: #BB0A21;
+        --kenyan-black: #0A0A0A;
+        --ivory-white: #F8F5F0;
+        --deep-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        --light-glow: 0 0 15px rgba(212, 175, 55, 0.4);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: var(--kenyan-black);
+        color: var(--ivory-white);
+        font-family: 'Cinzel', serif;
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+        background-image:
+          radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 30%),
+          radial-gradient(circle at 90% 80%, rgba(0, 102, 68, 0.08) 0%, transparent 30%);
+      }
+
+      body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("../img/flag.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        opacity: 0.1;
+        /* Adjust opacity as needed */
+        z-index: -1;
+      }
+
+      /* === Luxury Container === */
+      .luxury-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 3rem 1.5rem;
+        position: relative;
+        isolation: isolate;
+      }
+
+      /* === Presidential Seal Watermark === */
+      .presidential-seal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        aspect-ratio: 1/1;
+        opacity: 0.03;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="%23D4AF37" stroke-width="1"/><text x="50" y="55" text-anchor="middle" font-size="10" fill="%23D4AF37">PRESIDENT OF KENYA</text></svg>');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      /* === Gold Accent Borders === */
+      .gold-border-top,
+      .gold-border-bottom {
+        position: fixed;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+        z-index: 100;
+      }
+
+      .gold-border-top {
+        top: 0;
+      }
+
+      .gold-border-bottom {
+        bottom: 0;
+      }
+
+      /* === Header Section === */
+      header {
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 8vw, 4rem);
+        margin-bottom: 1rem;
+        background: linear-gradient(to right, var(--ivory-white), var(--gold-secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        letter-spacing: 2px;
+        text-shadow: var(--light-glow);
+        line-height: 1.2;
+      }
+
+      .subtitle {
+        font-family: 'Montserrat', sans-serif;
+        font-size: clamp(0.8rem, 3vw, 1.2rem);
+        letter-spacing: 3px;
+        color: var(--gold-primary);
+        text-transform: uppercase;
+        font-weight: 300;
+      }
+
+      /* === Countdown Timer === */
+      .countdown-container {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin: 4rem 0;
+        perspective: 1000px;
+        flex-wrap: wrap;
+      }
+
+      .countdown-box {
+        background: rgba(10, 10, 10, 0.7);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem 1rem;
+        text-align: center;
+        width: 22%;
+        min-width: 120px;
+        max-width: 200px;
+        backdrop-filter: blur(12px);
+        box-shadow: var(--deep-shadow);
+        transform-style: preserve-3d;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        flex-grow: 1;
+      }
+
+      .countdown-box::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(to bottom right,
+            transparent,
+            transparent,
+            rgba(212, 175, 55, 0.05),
+            rgba(212, 175, 55, 0.1));
+        transform: rotate(30deg);
+        z-index: -1;
+        transition: all 0.6s ease;
+      }
+
+      .countdown-box:hover {
+        transform: translateY(-15px) rotateX(10deg);
+        border-color: var(--gold-primary);
+        box-shadow: 0 30px 60px -15px rgba(212, 175, 55, 0.3);
+      }
+
+      .countdown-box:hover::before {
+        transform: rotate(45deg);
+      }
+
+      .countdown-value {
+        font-size: clamp(2rem, 8vw, 5rem);
+        font-weight: 700;
+        color: var(--gold-primary);
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .countdown-label {
+        font-family: 'Montserrat', sans-serif;
+        font-size: clamp(0.8rem, 3vw, 1.1rem);
+        color: var(--ivory-white);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 300;
+      }
+
+      /* === Kenyan Flag Animation === */
+      .kenyan-flag {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -2;
+        opacity: 0.05;
+        background:
+          linear-gradient(to bottom,
+            var(--kenyan-black) 0%,
+            var(--kenyan-black) 33%,
+            var(--kenyan-red) 33%,
+            var(--kenyan-red) 66%,
+            var(--kenyan-green) 66%,
+            var(--kenyan-green) 100%);
+      }
+
+      /* === Luxury Footer === */
+      .luxury-footer {
+        text-align: center;
+        margin-top: 5rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(212, 175, 55, 0.2);
+      }
+
+      .footer-text {
+        color: var(--gold-primary);
+        font-family: 'Montserrat', sans-serif;
+        font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+        letter-spacing: 2px;
+        font-weight: 300;
+      }
+
+      /* === Animations === */
+      @keyframes pulse {
+        0% {
+          opacity: 0.8;
+          text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        50% {
+          opacity: 1;
+          text-shadow: 0 0 25px rgba(212, 175, 55, 0.8);
         }
 
-body {
-    background-color: var(--kenyan-black);
-    color: var(--ivory-white);
-    font-family: 'Cinzel', serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-    position: relative;
-    background-image: 
-        radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 30%),
-        radial-gradient(circle at 90% 80%, rgba(0, 102, 68, 0.08) 0%, transparent 30%);
-}
+        100% {
+          opacity: 0.8;
+          text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+      }
 
-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("../img/flag.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    opacity: 0.1; /* Adjust opacity as needed */
-    z-index: -1;
-}
+      .pulse {
+        animation: pulse 2s infinite ease-in-out;
+      }
 
-        /* === Luxury Container === */
+      /* === Responsive Design === */
+      @media (max-width: 1024px) {
         .luxury-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 1.5rem;
-            position: relative;
-            isolation: isolate;
+          padding: 2.5rem 1.5rem;
         }
 
-        /* === Presidential Seal Watermark === */
-        .presidential-seal {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            aspect-ratio: 1/1;
-            opacity: 0.03;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="%23D4AF37" stroke-width="1"/><text x="50" y="55" text-anchor="middle" font-size="10" fill="%23D4AF37">PRESIDENT OF KENYA</text></svg>');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* === Gold Accent Borders === */
-        .gold-border-top, .gold-border-bottom {
-            position: fixed;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
-            z-index: 100;
-        }
-        .gold-border-top { top: 0; }
-        .gold-border-bottom { bottom: 0; }
-
-        /* === Header Section === */
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        h1 {
-            font-size: clamp(2rem, 8vw, 4rem);
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, var(--ivory-white), var(--gold-secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: 2px;
-            text-shadow: var(--light-glow);
-            line-height: 1.2;
-        }
-        .subtitle {
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(0.8rem, 3vw, 1.2rem);
-            letter-spacing: 3px;
-            color: var(--gold-primary);
-            text-transform: uppercase;
-            font-weight: 300;
-        }
-
-        /* === Countdown Timer === */
         .countdown-container {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 4rem 0;
-            perspective: 1000px;
-            flex-wrap: wrap;
+          gap: 1.2rem;
+          margin: 3rem 0;
         }
+
         .countdown-box {
-            background: rgba(10, 10, 10, 0.7);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 12px;
-            padding: 1.5rem 1rem;
-            text-align: center;
-            width: 22%;
-            min-width: 120px;
-            max-width: 200px;
-            backdrop-filter: blur(12px);
-            box-shadow: var(--deep-shadow);
-            transform-style: preserve-3d;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            flex-grow: 1;
+          padding: 1.2rem 0.8rem;
         }
-        .countdown-box::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                transparent,
-                transparent,
-                rgba(212, 175, 55, 0.05),
-                rgba(212, 175, 55, 0.1)
-            );
-            transform: rotate(30deg);
-            z-index: -1;
-            transition: all 0.6s ease;
-        }
-        .countdown-box:hover {
-            transform: translateY(-15px) rotateX(10deg);
-            border-color: var(--gold-primary);
-            box-shadow: 0 30px 60px -15px rgba(212, 175, 55, 0.3);
-        }
-        .countdown-box:hover::before {
-            transform: rotate(45deg);
-        }
-        .countdown-value {
-            font-size: clamp(2rem, 8vw, 5rem);
-            font-weight: 700;
-            color: var(--gold-primary);
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
-            font-variant-numeric: tabular-nums;
-        }
-        .countdown-label {
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(0.8rem, 3vw, 1.1rem);
-            color: var(--ivory-white);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 300;
+      }
+
+      @media (max-width: 768px) {
+        .luxury-container {
+          padding: 2rem 1rem;
         }
 
-        /* === Kenyan Flag Animation === */
-        .kenyan-flag {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -2;
-            opacity: 0.05;
-            background: 
-                linear-gradient(to bottom, 
-                    var(--kenyan-black) 0%, 
-                    var(--kenyan-black) 33%, 
-                    var(--kenyan-red) 33%, 
-                    var(--kenyan-red) 66%, 
-                    var(--kenyan-green) 66%, 
-                    var(--kenyan-green) 100%);
+        header {
+          margin-bottom: 2rem;
         }
 
-        /* === Luxury Footer === */
+        .countdown-container {
+          gap: 1rem;
+          margin: 2.5rem 0;
+        }
+
+        .countdown-box {
+          width: 45%;
+          margin-bottom: 1rem;
+          max-width: none;
+        }
+
         .luxury-footer {
-            text-align: center;
-            margin-top: 5rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
+          margin-top: 3rem;
         }
-        .footer-text {
-            color: var(--gold-primary);
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(0.7rem, 2.5vw, 0.9rem);
-            letter-spacing: 2px;
-            font-weight: 300;
+      }
+
+      @media (max-width: 480px) {
+        .luxury-container {
+          padding: 1.5rem 0.8rem;
         }
 
-        /* === Animations === */
-        @keyframes pulse {
-            0% { opacity: 0.8; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
-            50% { opacity: 1; text-shadow: 0 0 25px rgba(212, 175, 55, 0.8); }
-            100% { opacity: 0.8; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
-        }
-        .pulse {
-            animation: pulse 2s infinite ease-in-out;
+        .countdown-container {
+          gap: 0.8rem;
         }
 
-        /* === Responsive Design === */
-        @media (max-width: 1024px) {
-            .luxury-container {
-                padding: 2.5rem 1.5rem;
-            }
-            .countdown-container {
-                gap: 1.2rem;
-                margin: 3rem 0;
-            }
-            .countdown-box {
-                padding: 1.2rem 0.8rem;
-            }
+        .countdown-box {
+          width: 46%;
+          padding: 1rem 0.5rem;
+          min-width: 100px;
         }
 
-        @media (max-width: 768px) {
-            .luxury-container {
-                padding: 2rem 1rem;
-            }
-            header {
-                margin-bottom: 2rem;
-            }
-            .countdown-container {
-                gap: 1rem;
-                margin: 2.5rem 0;
-            }
-            .countdown-box {
-                width: 45%;
-                margin-bottom: 1rem;
-                max-width: none;
-            }
-            .luxury-footer {
-                margin-top: 3rem;
-            }
+        .countdown-value {
+          font-size: clamp(1.8rem, 10vw, 3rem);
         }
 
-        @media (max-width: 480px) {
-            .luxury-container {
-                padding: 1.5rem 0.8rem;
-            }
-            .countdown-container {
-                gap: 0.8rem;
-            }
-            .countdown-box {
-                width: 46%;
-                padding: 1rem 0.5rem;
-                min-width: 100px;
-            }
-            .countdown-value {
-                font-size: clamp(1.8rem, 10vw, 3rem);
-            }
-            .luxury-footer {
-                margin-top: 2rem;
-                padding-top: 1.5rem;
-            }
+        .luxury-footer {
+          margin-top: 2rem;
+          padding-top: 1.5rem;
         }
+      }
+
+
+
+
+      /* === Voter Message Styling === */
+      .voter-message {
+        font-family: 'Montserrat', sans-serif;
+        font-size: clamp(1rem, 3vw, 1.3rem);
+        color: var(--gold-secondary);
+        margin-top: 1.5rem;
+        padding: 0.8rem 1.5rem;
+        background: rgba(10, 10, 10, 0.6);
+        border-left: 3px solid var(--gold-primary);
+        border-right: 3px solid var(--gold-primary);
+        letter-spacing: 1px;
+        line-height: 1.6;
+        text-align: center;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 4px;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Cursor animation */
+      .voter-message::after {
+        content: '|';
+        animation: blink 1s step-end infinite;
+        color: var(--gold-primary);
+        margin-left: 2px;
+      }
+
+      @keyframes blink {
+
+        from,
+        to {
+          opacity: 1;
+        }
+
+        50% {
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .voter-message {
+          padding: 0.6rem 1rem;
+          font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+          min-height: 50px;
+        }
+      }
